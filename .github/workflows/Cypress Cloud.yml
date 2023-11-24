@@ -4,7 +4,7 @@ on:
     inputs:
       spec: 
         description: Run by cypress command line
-        default: Cypress/e2e/*
+        default: cypress/e2e/*
 jobs:
   cypress-electron-tests:
     runs-on: ubuntu-latest
