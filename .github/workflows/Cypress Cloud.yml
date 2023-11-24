@@ -1,13 +1,18 @@
 name: Cypress Cloud
+
 on:
   workflow_dispatch:
     inputs:
       spec: 
         description: Run by cypress command line
         default: cypress/e2e/*
+        
 jobs:
   cypress-electron-tests:
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      options: --user 1001
     steps: 
       - name: Get code
         uses: actions/checkout@v4.1.1
@@ -24,3 +29,70 @@ jobs:
           CYPRESS_RECORD_KEY: 4668a847-0dfb-4aa4-9aed-9d646e768f34
           GITHUB_TOKE: ${{secrets.GITHUB_TOKEN}}
           
+  cypress-chrome-tests:
+    needs: cypress-electron-tests
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      options: --user 1001
+    steps: 
+      - name: Get code
+        uses: actions/checkout@v4.1.1
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6.5.0
+        with:
+          install-command: yarn install
+          browser: chrome
+          record: true
+          group: UI Chrome
+          spec: ${{github.event.inputs.spec}}
+        env:
+          CYPRESS_RECORD_KEY: 4668a847-0dfb-4aa4-9aed-9d646e768f34
+          GITHUB_TOKE: ${{secrets.GITHUB_TOKEN}}
+          
+  cypress-firefox-tests:
+    runs-on: ubuntu-latest
+    needs: cypress-chrome-tests
+    container:
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      options: --user 1001
+    steps:  
+      - name: Get code
+        uses: actions/checkout@v4.1.1
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6.5.0
+        with:
+          install-command: yarn install
+          browser: firefox
+          record: true
+          group: UI Firefox
+          spec: ${{github.event.inputs.spec}}
+        env:
+          CYPRESS_RECORD_KEY: 4668a847-0dfb-4aa4-9aed-9d646e768f34
+          GITHUB_TOKE: ${{secrets.GITHUB_TOKEN}}
+
+  cypress-edge-tests:
+      runs-on: ubuntu-latest
+      needs: cypress-firefox-tests
+      container:
+        image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+        options: --user 1001
+      steps:  
+        - name: Get code
+          uses: actions/checkout@v4.1.1
+  
+        - name: Cypress run
+          uses: cypress-io/github-action@v6.5.0
+          with:
+            install-command: yarn install
+            browser: edge
+            record: true
+            group: UI Edge
+            spec: ${{github.event.inputs.spec}}
+          env:
+            CYPRESS_RECORD_KEY: 4668a847-0dfb-4aa4-9aed-9d646e768f34
+            GITHUB_TOKE: ${{secrets.GITHUB_TOKEN}}
+
+
