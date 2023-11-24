@@ -30,7 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           
   cypress-chrome-tests:
-    needs: cypress-electron-tests
+    needs: [cypress-electron-tests]
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:latest
