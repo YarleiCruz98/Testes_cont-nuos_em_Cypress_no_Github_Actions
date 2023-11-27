@@ -47,6 +47,9 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4.1.1
 
+      - name: Wait for 2 minutes
+        run: sleep 120  # Espera por 2 minutos antes de continuar
+
       - name: Cypress run
         uses: cypress-io/github-action@v6.5.0
         with:
