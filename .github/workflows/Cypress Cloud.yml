@@ -37,8 +37,12 @@ jobs:
       options: --user 1001
     steps:
 
-      - name: Aguardar 2 minutos
-        run: sleep 120
+      - name: Cache Cypress
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
         
       - name: Get code
         uses: actions/checkout@v4.1.1
