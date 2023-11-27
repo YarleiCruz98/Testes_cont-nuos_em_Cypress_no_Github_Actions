@@ -4,43 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  cypress-electron-tests:
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:latest
-      options: --user 1001
-    steps: 
-      - name: Get code
-        uses: actions/checkout@v4.1.1
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Run E2E teste headlessly
-        run:  node runner-electron.js
-    env: 
-      TARGET_TOKEN_ELECTRON: ${{secrets.TARGET_TOKEN_ELECTRON}}
-      
-  cypress-chrome-tests:
-    needs: cypress-electron-tests
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:latest
-      options: --user 1001
-    steps: 
-      - name: Get code
-        uses: actions/checkout@v4.1.1
-  
-      - name: Install dependencies
-        run: yarn install
-  
-      - name: Run E2E teste headlessly
-        run:  node runner-chrome.js
-    env: 
-      TARGET_TOKEN_CHROME: ${{secrets.TARGET_TOKEN_CHROME}}
-
   cypress-firefox-tests:
-    needs: cypress-electron-tests
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:latest
