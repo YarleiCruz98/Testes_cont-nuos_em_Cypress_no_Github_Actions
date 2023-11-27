@@ -37,7 +37,7 @@ jobs:
       - name: Run E2E teste headlessly
         run:  node runner-chrome.js
     env: 
-      TARGET_TOKEN_ELECTRON: ${{secrets.TARGET_TOKEN_CHROME}}
+      TARGET_TOKEN_CHROME: ${{secrets.TARGET_TOKEN_CHROME}}
 
   cypress-firefox-tests:
     needs: cypress-electron-tests
@@ -55,4 +55,4 @@ jobs:
       - name: Run E2E teste headlessly
         run:  node runner-firefox.js
     env: 
-      TARGET_TOKEN_ELECTRON: ${{secrets.TARGET_TOKEN_FIREFOX}}
+      TARGET_TOKEN_CHROME: ${{secrets.TARGET_TOKEN_FIREFOX}}
