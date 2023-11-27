@@ -52,5 +52,5 @@ jobs:
           spec: ${{github.event.inputs.spec}}
           
         env:
-          CYPRESS_RECORD_KEY: 4668a847-0dfb-4aa4-9aed-9d646e768f34
+          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
