@@ -35,7 +35,11 @@ jobs:
     container:
       image: cypress/browsers:latest
       options: --user 1001
-    steps: 
+    steps:
+
+      - name: Aguardar 2 minutos
+        run: sleep 120
+        
       - name: Get code
         uses: actions/checkout@v4.1.1
 
