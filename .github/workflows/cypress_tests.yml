@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  cypress-electron-tests:
+  cypress-chrome-tests:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:latest
@@ -17,6 +17,6 @@ jobs:
         run: yarn install
 
       - name: Run E2E teste headlessly
-        run:  node runner-electron.js
+        run:  node runner-chrome.js
     env: 
-      TARGET_TOKEN_ELECTRON: ${{secrets.TARGET_TOKEN_ELECTRON}}
+      TARGET_TOKEN_CHROME: ${{secrets.TARGET_TOKEN_CHROME}}
