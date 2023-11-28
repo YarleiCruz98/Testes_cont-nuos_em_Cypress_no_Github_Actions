@@ -37,5 +37,5 @@ jobs:
       - name: Run E2E teste headlessly
         run:  node runner-chrome.js
     env: 
-      TARGET_TOKEN_CRHOME: ${{secrets.TARGET_TOKEN_CRHOME}}      
+      TARGET_TOKEN_CHROME: ${{secrets.TARGET_TOKEN_CHROME}}
       
