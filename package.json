@@ -7,7 +7,7 @@
     "cypress:test": "yarn cypress run",
     "cypress:gui": "yarn cypress open"
   },
-  "author": "Fernando Papito",
+  "author": "Yarlei Cruz",
   "license": "MIT",
   "devDependencies": {
     "cypress": "12.5.1",
